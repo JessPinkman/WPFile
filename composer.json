@@ -1,0 +1,19 @@
+{
+    "name": "jesspinkman/wp-file",
+    "description": "Fetch file urls and paths for wordpress",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "JessPinkman",
+            "email": "serge.goncalves@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "WPFile\\" : "src"
+        }
+    }
+}

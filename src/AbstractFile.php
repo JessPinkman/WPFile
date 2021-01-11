@@ -76,6 +76,6 @@ abstract class AbstractFile
      */
     public static function newFile(string $relative_path): self
     {
-        return new self($relative_path);
+        return new static($relative_path);
     }
 }

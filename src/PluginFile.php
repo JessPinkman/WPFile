@@ -4,34 +4,18 @@ namespace WPFile;
 
 use Error;
 
-class PluginFile
+class PluginFile extends AbstractFile
 {
 
     private static string $basePath;
     private static string $baseURL;
-    private string $relative_path;
-    public string $path;
-    public ?string $URL = null;
-    public ?string $version = null;
 
     public function __construct(string $relative_path)
     {
         if (!self::$baseURL || !self::$basePath) {
             throw new Error('PluginFile Root not defined');
         }
-        $this->relative_path =  ltrim($relative_path, '/\\');
-        $this->setPath();
-        $this->setURL();
-    }
-
-    /**
-     * Get the file URL
-     *
-     * @return string $url
-     */
-    public function getURL()
-    {
-        return $this->URL;
+        parent::__construct($relative_path);
     }
 
     /**
@@ -39,7 +23,7 @@ class PluginFile
      *
      * @return  self
      */
-    private function setURL()
+    protected function setURL(): self
     {
         $this->URL = \plugins_url($this->relative_path, self::$baseURL);
 
@@ -47,41 +31,11 @@ class PluginFile
     }
 
     /**
-     * Get the version
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * Set the file version
-     *
-     * @param string $version if null, automatically set based on file modification
-     *
-     * @return  self
-     */
-    public function setVersion(string $version = null)
-    {
-        $this->version = $version ?? \filemtime($this->path);
-
-        return $this;
-    }
-
-    /**
-     * Get the file absolute path
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
      * Set the file absolute path
      *
      * @return  self
      */
-    private function setPath()
+    protected function setPath(): self
     {
         $this->path = self::$basePath . $this->relative_path;
 
@@ -97,17 +51,5 @@ class PluginFile
     {
         self::$baseURL = $root;
         self::$basePath = dirname($root) . \DIRECTORY_SEPARATOR;
-    }
-
-    /**
-     * Create and return new instance
-     *
-     * @param string $relative_path relative path of the file
-     *
-     * @return self
-     */
-    public static function newFile(string $relative_path): self
-    {
-        return new self($relative_path);
     }
 }

@@ -19,7 +19,30 @@ getVersion() // file modification time
 
 ```
 
-## Plugin
+## For themes
+
+No need to set the root folder of your theme, use it right away:
+
+
+```php
+use WPFile\ThemeFile;
+
+// load a js script
+add_action('wp_enqueue_scripts', 'load_script');
+
+function load_script() {
+  $file = new ThemeFile('assets/js/my-script.js');
+  \wp_register_script(
+      'my-script',          // script handle name
+      $file->getURL(),      // file url (eg: https://my-website.com/.../.../my-theme/assets/js/my-scripts.js)
+      [],                   // empty dependencies 
+      $file->getVersion()   // file modification timestamp (eg: 1621496690)
+  );
+  // generated url https://my-website.com/.../.../my-plugin/assets/js/my-scripts.js?ver=1621496690
+}
+```
+
+## For Plugins
 
 in your plugin root file, set the root path
 
@@ -72,29 +95,6 @@ function hook_template(string $template) {
     }
 }
 
-```
-
-## For themes
-
-No need to set the root folder of your theme, use it right away:
-
-
-```php
-use WPFile\ThemeFile;
-
-// load a js script
-add_action('wp_enqueue_scripts', 'load_script');
-
-function load_script() {
-  $file = new ThemeFile('assets/js/my-script.js');
-  \wp_register_script(
-      'my-script',          // script handle name
-      $file->getURL(),      // file url (eg: https://my-website.com/.../.../my-theme/assets/js/my-scripts.js)
-      [],                   // empty dependencies 
-      $file->getVersion()   // file modification timestamp (eg: 1621496690)
-  );
-  // generated url https://my-website.com/.../.../my-plugin/assets/js/my-scripts.js?ver=1621496690
-}
 ```
 
 

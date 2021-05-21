@@ -32,7 +32,7 @@ add_action('wp_enqueue_scripts', 'load_script');
 
 function load_script() {
   $file = new ThemeFile('assets/js/my-script.js');
-  \wp_register_script(
+  \wp_enqueue_script(
       'my-script',          // script handle name
       $file->getURL(),      // file url (eg: https://my-website.com/.../.../my-theme/assets/js/my-scripts.js)
       [],                   // empty dependencies 
@@ -73,7 +73,7 @@ add_action('wp_enqueue_scripts', 'load_script');
 
 function load_script() {
   $file = new WPFile('assets/js/my-script.js');
-  \wp_register_script(
+  \wp_enqueue_script(
       'my-script',          // script handle name
       $file->getURL(),      // file url (eg: https://my-website.com/.../.../my-plugin/assets/js/my-scripts.js)
       [],                   // empty dependencies 

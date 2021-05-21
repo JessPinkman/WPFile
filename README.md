@@ -17,9 +17,10 @@ getUrl()
 getPath()
 getVersion() // file modification time
 
+```
+
 ## Plugin
 
-```
 in your plugin root file, set the root path
 
 ```php
